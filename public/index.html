@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multiplayer Tic-Tac-Toe</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- MENU SCREEN -->
+  <div id="menu" class="screen active">
+    <div class="card">
+      <h1>Tic-Tac-Toe</h1>
+      <p class="subtitle">Real-Time Multiplayer</p>
+      <div class="legend-row">
+        <div class="legend-item">
+          <div class="mini-jersey curry-jersey">
+            <span class="mj-num">30</span>
+            <span class="mj-name">CURRY</span>
+          </div>
+          <span class="legend-sym x-sym">= X</span>
+        </div>
+        <div class="legend-item">
+          <div class="mini-jersey ronaldo-jersey">
+            <span class="mj-num">7</span>
+            <span class="mj-name">RONALDO</span>
+          </div>
+          <span class="legend-sym o-sym">= O</span>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button id="createBtn" class="btn btn-x">Create Room</button>
+        <div class="divider">or</div>
+        <input id="joinInput" type="text" placeholder="Enter Room Code" maxlength="5" />
+        <button id="joinBtn" class="btn btn-o">Join Room</button>
+      </div>
+      <p id="menuError" class="error-msg"></p>
+    </div>
+  </div>
+
+  <!-- WAITING SCREEN -->
+  <div id="waiting" class="screen">
+    <div class="card">
+      <h2>Room Created!</h2>
+      <p class="subtitle">Share this code with your opponent:</p>
+      <div id="roomCodeDisplay" class="room-code"></div>
+      <p class="waiting-text">Waiting for Player 2 to join...</p>
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="game" class="screen">
+    <div class="game-header">
+      <div class="player-badge">You are:
+        <span id="mySymbol"></span>
+        <span id="myJerseyTag" class="jersey-tag"></span>
+      </div>
+      <div id="statusMsg" class="status-msg"></div>
+      <div class="room-label">Room: <span id="gameRoomCode"></span></div>
+    </div>
+
+    <div class="board-wrapper">
+      <!-- Watermark -->
+      <div class="watermark"><em>Mohazan0</em></div>
+
+      <!-- Jersey art left (Curry) -->
+      <div class="board-jersey left-jersey">
+        <div class="bj-shirt curry-shirt">
+          <div class="bj-collar"></div>
+          <div class="bj-num">30</div>
+          <div class="bj-name">CURRY</div>
+        </div>
+      </div>
+
+      <!-- The actual board -->
+      <div id="board" class="board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+      </div>
+
+      <!-- Jersey art right (Ronaldo) -->
+      <div class="board-jersey right-jersey">
+        <div class="bj-shirt ronaldo-shirt">
+          <div class="bj-collar"></div>
+          <div class="bj-num">7</div>
+          <div class="bj-name">RONALDO</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="result" class="screen">
+    <div class="card">
+      <div id="resultIcon" class="result-icon"></div>
+      <h2 id="resultText"></h2>
+      <div id="winnerDisplay" class="winner-display"></div>
+      <button id="playAgainBtn" class="btn btn-x">Play Again</button>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

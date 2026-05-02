@@ -1,0 +1,430 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;600&family=Dancing+Script:wght@600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d0d0f;
+  --surface: #16161a;
+  --border: #2a2a30;
+  --x-color: #ffc72c;   /* Curry gold */
+  --o-color: #c8a951;   /* Ronaldo Real Madrid gold trim */
+  --x-bright: #ffd966;
+  --o-bright: #ffffff;
+  --text: #e8e8f0;
+  --muted: #6b6b80;
+  --radius: 16px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 50%, rgba(255,199,44,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 50%, rgba(255,255,255,0.05) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── SCREENS ─────────────────────────────────────────────────────── */
+.screen {
+  display: none;
+  position: absolute;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.4s ease;
+  z-index: 1;
+}
+.screen.active { display: flex; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── CARD ─────────────────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #ffc72c, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+h2 { font-size: 1.7rem; font-weight: 700; }
+.subtitle { color: var(--muted); font-size: 0.9rem; }
+
+/* ── BUTTONS ─────────────────────────────────────────────────────── */
+.btn-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, opacity 0.15s;
+  letter-spacing: 0.5px;
+}
+.btn:hover { transform: translateY(-2px); opacity: 0.9; }
+.btn:active { transform: translateY(0); }
+.btn-x { background: #1d428a; color: #ffc72c; border: 2px solid #ffc72c; }
+.btn-o { background: #f5f5f5; color: #1a1a1a; }
+
+input {
+  width: 100%;
+  padding: 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+input:focus { border-color: #ffc72c; }
+input::placeholder { letter-spacing: 1px; color: var(--muted); font-size: 0.9rem; }
+
+.divider { color: var(--muted); font-size: 0.85rem; }
+.error-msg { color: #ff4d6d; font-size: 0.88rem; min-height: 1.2em; }
+
+/* ── MENU LEGEND ─────────────────────────────────────────────────── */
+.legend-row {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  align-items: center;
+}
+.legend-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.legend-sym {
+  font-size: 1rem;
+  font-weight: 800;
+}
+.x-sym { color: #ffc72c; }
+.o-sym { color: #ffffff; }
+
+/* ── MINI JERSEY (menu) ──────────────────────────────────────────── */
+.mini-jersey {
+  width: 64px;
+  height: 72px;
+  border-radius: 5px 5px 8px 8px;
+  clip-path: polygon(18% 0%, 82% 0%, 100% 16%, 100% 100%, 0% 100%, 0% 16%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.2s;
+}
+.mini-jersey:hover { transform: scale(1.08); }
+
+.mj-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.6rem;
+  font-weight: 900;
+  line-height: 1;
+}
+.mj-name {
+  font-size: 0.38rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
+.curry-jersey {
+  background: linear-gradient(170deg, #1d428a 55%, #ffc72c 55%);
+  border: 2px solid #ffc72c;
+  box-shadow: 0 4px 16px rgba(255,199,44,0.3);
+}
+.curry-jersey .mj-num  { color: #ffc72c; }
+.curry-jersey .mj-name { color: #ffc72c; }
+
+.ronaldo-jersey {
+  background: linear-gradient(170deg, #f5f5f5 55%, #d4af37 55%);
+  border: 2px solid #d4af37;
+  box-shadow: 0 4px 16px rgba(255,255,255,0.15);
+}
+.ronaldo-jersey .mj-num  { color: #1a1a1a; }
+.ronaldo-jersey .mj-name { color: #1a1a1a; }
+
+/* ── WAITING ─────────────────────────────────────────────────────── */
+.room-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.8rem;
+  font-weight: 600;
+  letter-spacing: 10px;
+  color: #ffc72c;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 24px;
+}
+.waiting-text { color: var(--muted); font-size: 0.9rem; }
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: #ffc72c;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── GAME SCREEN ─────────────────────────────────────────────────── */
+#game {
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.game-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+.player-badge { font-size: 0.9rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.player-badge span { font-weight: 800; font-size: 1rem; }
+.jersey-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+.status-msg { font-size: 1.05rem; font-weight: 700; min-height: 1.5em; text-align: center; }
+.room-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); letter-spacing: 2px; }
+
+/* ── BOARD WRAPPER ───────────────────────────────────────────────── */
+.board-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* ── WATERMARK ───────────────────────────────────────────────────── */
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.055);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 10;
+  user-select: none;
+  letter-spacing: 1px;
+}
+
+/* ── BOARD SIDE JERSEYS ──────────────────────────────────────────── */
+.board-jersey {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* The shirt shape */
+.bj-shirt {
+  width: 72px;
+  height: 84px;
+  border-radius: 5px 5px 10px 10px;
+  clip-path: polygon(18% 0%, 82% 0%, 100% 18%, 100% 100%, 0% 100%, 0% 18%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.3s;
+}
+.bj-shirt:hover { transform: scale(1.06) rotate(-2deg); }
+
+.bj-collar {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 10px;
+  border-radius: 0 0 50% 50%;
+  z-index: 2;
+}
+
+.bj-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-top: 8px;
+}
+.bj-name {
+  font-size: 0.38rem;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  margin-top: 2px;
+}
+
+/* Curry — GSW royal blue + gold */
+.curry-shirt {
+  background: linear-gradient(165deg, #1d428a 0%, #1d428a 50%, #ffc72c 50%);
+  border: 2px solid #ffc72c;
+  box-shadow: 0 0 20px rgba(255,199,44,0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.curry-shirt .bj-collar { background: #1d428a; border: 2px solid #ffc72c; }
+.curry-shirt .bj-num  { color: #ffc72c; text-shadow: 0 0 10px rgba(255,199,44,0.5); }
+.curry-shirt .bj-name { color: #ffc72c; }
+
+/* Ronaldo — Real Madrid all white + gold trim */
+.ronaldo-shirt {
+  background: linear-gradient(165deg, #f8f8f8 0%, #f0f0f0 100%);
+  border: 2px solid #d4af37;
+  box-shadow: 0 0 20px rgba(212,175,55,0.2), inset 0 1px 0 rgba(255,255,255,0.8);
+}
+.ronaldo-shirt .bj-collar { background: #f0f0f0; border: 2px solid #d4af37; }
+.ronaldo-shirt .bj-num  { color: #1a1a1a; text-shadow: none; }
+.ronaldo-shirt .bj-name { color: #555; }
+
+/* ── BOARD ───────────────────────────────────────────────────────── */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 7px;
+}
+
+.cell {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.4rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s, border-color 0.15s;
+  user-select: none;
+  overflow: hidden;
+  position: relative;
+}
+.cell:hover:not(.taken) {
+  background: #1e1e24;
+  border-color: #3a3a45;
+  transform: scale(1.04);
+}
+.cell.taken { cursor: default; }
+
+/* X cell shows mini Curry jersey content */
+.cell.x {
+  background: linear-gradient(135deg, #0e2147 0%, #1d428a 100%);
+  border-color: #ffc72c;
+  box-shadow: inset 0 0 12px rgba(255,199,44,0.15);
+}
+.cell.x::after {
+  content: '30';
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #ffc72c;
+  text-shadow: 0 0 12px rgba(255,199,44,0.6);
+}
+
+/* O cell shows mini Ronaldo jersey content */
+.cell.o {
+  background: linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 100%);
+  border-color: #d4af37;
+  box-shadow: inset 0 0 12px rgba(212,175,55,0.2);
+}
+.cell.o::after {
+  content: '7';
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #1a1a1a;
+}
+
+.cell.pop {
+  animation: pop 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes pop {
+  0%   { transform: scale(0.5) rotate(-8deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* ── RESULT SCREEN ───────────────────────────────────────────────── */
+.result-icon { font-size: 3.5rem; }
+
+.winner-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.result-jersey {
+  width: 100px;
+  height: 114px;
+}
+.result-jersey .bj-num  { font-size: 2.6rem !important; }
+.result-jersey .bj-name { font-size: 0.5rem !important; }
+
+.winner-name-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+@keyframes popIn {
+  0%   { transform: scale(0.4) rotate(-10deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
